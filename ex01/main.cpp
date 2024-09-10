@@ -2,32 +2,67 @@
 #include "Animal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
+#include "Brain.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
 
 int main()
 {
-    const Animal* meta = new Animal();
-    const Animal* j = new Dog();
-    const Animal* i = new Cat();
-    std::cout << meta->getType() << " " << std::endl;
-    std::cout << j->getType() << " " << std::endl;
-    std::cout << i->getType() << " " << std::endl;
-    i->makeSound();
-    j->makeSound();
-    meta->makeSound();
+    const int numAnimals = 10;
+    Animal* animals[numAnimals];
 
-    const WrongAnimal* wmeta = new WrongAnimal();
-    const WrongAnimal* wj = new WrongCat();
+    // Create half dogs and half cats
+    for (int i = 0; i < numAnimals; i++)
+    {
+        if (i < numAnimals / 2)
+            animals[i] = new Dog();
+        else
+            animals[i] = new Cat();
+    }
 
-    std::cout << wmeta->getType() << " " << std::endl;
-    std::cout << wj->getType() << " " << std::endl;
-    wmeta->makeSound();
-    wj->makeSound();
+    // Test deep copy
+    for (int i = 0; i < numAnimals; i++)
+    {
+        if (i < numAnimals / 2)
+        {
+            Dog* dog = dynamic_cast<Dog*>(animals[i]);
+            dog->makeSound();
+            Dog* dogCopy = new Dog(*dog);
+            dogCopy->makeSound();
+            delete dogCopy;
+        }
+        else
+        {
+            Cat* cat = dynamic_cast<Cat*>(animals[i]);
+            cat->makeSound();
+            Cat* catCopy = new Cat(*cat);
+            catCopy->makeSound();
+            delete catCopy;
+        }
+    }
 
-    delete wj;
-    delete wmeta;
-    delete meta;
-    delete j;
-    delete i;
+    //generate ideas and test them
+    for (int i = 0; i < numAnimals; i++)
+    {
+        if (i < numAnimals / 2)
+        {
+            Dog* dog = dynamic_cast<Dog*>(animals[i]);
+            dog->getBrain()->setIdea("I am a dog", 0);
+            std::cout << dog->getBrain()->getIdea(0) << std::endl;
+        }
+        else
+        {
+            Cat* cat = dynamic_cast<Cat*>(animals[i]);
+            cat->getBrain()->setIdea("I am a cat", 0);
+            std::cout << cat->getBrain()->getIdea(0) << std::endl;
+        }
+    }
+
+    // Delete animals to avoid leaks
+    for (int i = 0; i < numAnimals; i++)
+    {
+        delete animals[i];
+    }
+
+    return 0;
 }
