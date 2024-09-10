@@ -2,10 +2,9 @@
 #ifndef BRAIN_HPP
 #define BRAIN_HPP
 
-#include "Cat.hpp"
-#include "Dog.hpp"
+#include <iostream>
 
-class Brain : public Cat, public Dog
+class Brain
 {
     private:
         std::string ideas[100];

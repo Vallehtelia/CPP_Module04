@@ -37,7 +37,13 @@ void Cat::makeSound() const
     std::cout << "Meow\n";
 }
 
-Brain *Cat::getBrain() const
+void    Cat::getIdeas() const
 {
-    return (this->brain);
+    for (int i = 0; i < 100; i++)
+        std::cout << "\tIdea " << i << " of the Cat is: \"" << this->brain->getIdea(i) << std::endl;
+}
+
+void    Cat::setIdeas(int i, std::string idea) const
+{
+    this->brain->setIdea(idea, i);
 }

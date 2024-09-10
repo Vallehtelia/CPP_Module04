@@ -38,7 +38,13 @@ void Dog::makeSound() const
     std::cout << "Woof Woof!\n";
 }
 
-Brain *Dog::getBrain() const
+void    Dog::getIdeas() const
 {
-    return (this->brain);
+    for (int i = 0; i < 100; i++)
+        std::cout << "\tIdea " << i << " of the Cat is: \"" << this->brain->getIdea(i) << std::endl;
+}
+
+void    Dog::setIdeas(int i, std::string idea) const
+{
+    this->brain->setIdea(idea, i);
 }

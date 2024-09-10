@@ -30,10 +30,16 @@ Brain::~Brain()
 
 void Brain::setIdea(std::string idea, int index)
 {
-    ideas[index] = idea;
+    if (index < 100)
+        this->ideas[index] = idea;
+    else
+        std::cout << "There is only 100 ideas per brain." << std::endl;
 }
 
 std::string Brain::getIdea(int index) const
 {
-    return ideas[index];
+    if (index < 100)
+        return this->ideas[index];
+    else
+        return NULL;
 }
